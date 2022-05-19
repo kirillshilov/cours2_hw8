@@ -41,7 +41,7 @@ public class NewEmployeeServis {
     public String showAllEmployeesByDepartment() {
         String department = new String();
         for (Double i = Double.valueOf(0); i < 5; i++) {
-            department = department + showAllEmployeeOfDepartment(i);
+            department = department + showAllEmployeeOfDepartment(i).toString() + "<br>";
         }
         return department;
     }

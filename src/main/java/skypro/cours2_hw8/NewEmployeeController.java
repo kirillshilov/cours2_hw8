@@ -27,13 +27,12 @@ public class NewEmployeeController {
         return service.findMinSalaryByDepartment(departmentId);
     }
 
-    @GetMapping("/all-by-department")
-    public List<Employee> employeeByDepartment(@RequestParam Double departmentId) {
-        return service.showAllEmployeeOfDepartment(departmentId);
-    }
-
     @GetMapping("/all")
-    public String allEmployeeByDepartment() {
+    public String employeeByDepartment(@RequestParam (required = false) Double departmentId) {
+        if (departmentId != null) {return service.showAllEmployeeOfDepartment(departmentId).toString();
+
+    }
+    else {
         return service.showAllEmployeesByDepartment();
     }
-}
+}}
