@@ -1,9 +1,12 @@
 package skypro.cours2_hw8;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+
+import static org.apache.commons.lang3.StringUtils.*;
 
 
 @Service
@@ -13,6 +16,7 @@ public class EmployeeServise {
     };
 
     public Employee addEmployee(String firstName, String lastName, Double salary, Double department) {
+        checkData(firstName, lastName);
         if (employee.containsKey(conkatinate(firstName, lastName))) {
             throw new AlreadyHasException();
         }
@@ -21,6 +25,7 @@ public class EmployeeServise {
     }
 
     public Employee deleteEmployee(String firstName, String lastName) {
+        checkData(firstName, lastName);
         if (employee.containsKey(conkatinate(firstName, lastName))) {
             Employee employee1 = employee.get(conkatinate(firstName, lastName));
             employee.remove(conkatinate(firstName, lastName));
@@ -29,8 +34,18 @@ public class EmployeeServise {
         throw new NotFoundException();
     }
 
+    private void checkData(String firstName, String lastName) {
+        if (StringUtils.contains(firstName, null) &&
+                StringUtils.contains(lastName, null) &&
+                StringUtils.isAlpha(firstName) == false &&
+                StringUtils.isAlpha(lastName) == false) {
+            throw new AlreadyHasException();
+        }
+    }
+
 
     public Employee findEmployee(String firstName, String lastName) {
+        checkData(firstName, lastName);
         if (employee.containsKey(conkatinate(firstName, lastName))) {
             return employee.get(conkatinate(firstName, lastName));
         }
@@ -42,7 +57,9 @@ public class EmployeeServise {
     }
 
     private String conkatinate(String firstName, String lastName) {
-        return firstName + lastName;
+        firstName = trim(firstName);
+        lastName = trim(lastName);
+        return capitalize(firstName) + capitalize(lastName);
     }
 
     public Map<String, Employee> getEmployee() {
