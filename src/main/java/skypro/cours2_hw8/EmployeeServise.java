@@ -35,9 +35,9 @@ public class EmployeeServise {
     }
 
     private void checkData(String firstName, String lastName) {
-        if (StringUtils.contains(firstName, null) &&
-                StringUtils.contains(lastName, null) &&
-                StringUtils.isAlpha(firstName) == false &&
+        if (StringUtils.contains(firstName, null) ||
+                StringUtils.contains(lastName, null) ||
+                StringUtils.isAlpha(firstName) == false ||
                 StringUtils.isAlpha(lastName) == false) {
             throw new AlreadyHasException();
         }
